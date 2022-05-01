@@ -2,29 +2,33 @@ console.log ("wingardium mimosa");
 const students = [
   {
     studentId: 1,
-    name: "Harry",
+    name: " ",
     house: "Gryffindor",
-    firstYear: true,
+    imageUrl: "https://1000logos.net/wp-content/uploads/2021/11/Gryffindor-Logo.jpg"
   },
   {
     studentId: 2,
-    name: "Ron",
-    house: "Gryffindor",
-    firstYear: true,
+    name: " ",
+    house: "Slytherin",
+    imageUrl: "https://i.pinimg.com/originals/67/20/26/67202691def63dbc1fe2d8cb899c6bb2.jpg"
+
   },
   {
     studentId: 3,
-    name: "Hermione",
+    name: " ",
     house: "Hufflepuff",
-    firstYear: true,
+    imageUrl: "https://www.thestoreofrequirement.com.au/assets/full/2654.jpg?20200714031013.jpg"
   },
   {
     studentId: 4,
-    name: "Malfoy",
-    house: "Slytherin",
-    firstYear: true,
+    name: " ",
+    house: "Ravenclaw",
+    imageUrl: "https://www.redwolf.in/image/catalog/stickers/harry-potter-ravenclaw-crest-sticker-india.jpg"
   },
 ];
+let domString = " ";
+
+const filterStudentContainer = document.querySelector("#filterStudentContainer");
 // console.log(students);
 
 // *** UTILITY FUNCTIONS *** //
@@ -34,6 +38,23 @@ const renderToDom = (divId, textToRender) => {
 };
 
 // *** HTML COMPONENT FUNCTIONS *** //
+
+// *** SORTING HAT INTRO CARD *** //
+const sortingHat = () => {
+  let domString = `
+<div class="cardContainer" style="width: 18rem;">
+  <img src="https://i.ytimg.com/vi/hQ2rS_B_DGA/maxresdefault.jpg" class="card-img-top" alt="a sorting hat">
+  <div class="card-body">
+    <p class="card-text">Hello There Wizard. I am the Sorting Hat. Here lies your fate for the rest of your time at Hogwarts. ~ * Expecto Patronum to you ~*</p>
+    <button type="button" class="btn btn-dark">Start Sorting!</button>
+  </div>
+</div> 
+`;
+renderToDom ("#cardContainer", domString);
+};
+
+
+// *** STUDENT SORTING FORM *** //
 const studentNameSubmit = () => {
   const domString = `
 <form>
@@ -69,7 +90,61 @@ const studentNameSubmit = () => {
 renderToDom ("#submitStudentContainer", domString);
 };
 
+// *** HOUSE BUTTONS *** //
+const houseButtons = () => {
+  const domString = `
+<button type="button" class="btn btn-outline-danger">Gryffindor</button>
+<button type="button" class="btn btn-outline-warning">Hufflepuff</button>
+<button type="button" class="btn btn-outline-primary">Ravenclaw</button>
+<button type="button" class="btn btn-outline-success">Slytherin</button>
+`;
+renderToDom ("#submitStudentContainer", domString)
+};
 
+// *** STUDENT CARDS *** //
+const cardsOnDom = () => {
+  let domString = " ";
+  for (const sortedStudents of taco) {
+    domString += `
+  <div class="card" style="width: 18rem;">
+  <img src="${sortedStudents.imageUrl}" class="card-img-top" alt="a hogwarts house crest">
+  <div class="card-body">
+    <h5 class="card-title">${sortedStudents.name}</h5>
+    <p class="card-text">${sortedStudents.house}</p>
+    <a href="#" class="btn btn-danger">Expel</a>
+  </div>
+</div> `;
+}
+renderToDom ("#filterStudentContainer", domString);
+  };
+
+// *** STUDENT HOUSE CARDS *** //
+// const cardsOnDom = (array) => {
+//   let domString = " ";
+//   do (const item, array) {
+//     domString += `
+    
+//     `;
+//   }
+// }
+
+// *** EVENT LISTENERS *** //
+// const eventListeners = () => {
+// document.querySelector("#cardContainer").addEventListener("click",(e) => {
+//   console.log("You may enter the student name", e.target.id);
+//   if (e.target.id === "#submitStudentContainer"){
+//     cardsOnDom(studentNameSubmit);
+//   } else if (e.target.id) {
+//     const houses = students.filter (taco => taco.type === e.target.id);
+//     cardsOnDom(houses);
+//   }
+// });
+// }
+
+// // *** FORM BUTTONS *** ///
+// const houseButtons = () => {
+
+// }
 
 
 
@@ -80,4 +155,9 @@ renderToDom ("#submitStudentContainer", domString);
 
 
 // *** FUNCTIONS *** //
+
+sortingHat ();
 studentNameSubmit ();
+houseButtons ();
+cardsOnDom (students);
+// eventListeners ();
