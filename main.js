@@ -98,11 +98,40 @@ const houseButtons = () => {
 <button type="button" class="btn btn-outline-primary">Ravenclaw</button>
 <button type="button" class="btn btn-outline-success">Slytherin</button>
 `;
-renderToDom ("#submitStudentContainer", domString)
+renderToDom ("#houseButtonContainer", domString)
 };
 
+const filter = (e) => {
+  console.log("Gryffindor" === e.target.id)
+  if ("Hufflepuff" === e.target.id) {
+    console.log("You clicked the Hufflepuff button.");
+  } else if ("Ravenclaw" === e.target.id) {
+    console.log("You clicked the Ravenclaw button.");
+  } else if ("Slytherin" === e.target.id) {
+    console.log("You clicked the Slytherin button.");
+  } else if ("Gryffindor" === e.target.id) {
+    console.log("You clicked the Gryffindor button.");
+  }
+};
+
+// filterStudentContainer.innerHTML = domString;
+
+// *** HOUSE BUTTON FILTER *** //
+
+document.querySelector("#houseButtonContainer").addEventListener("click", (e) => {
+  console.log("You clicked a filter button.", e.target.id);
+  if (e.target.id === "Gryffindor") {
+    cardsOnDom(students);
+  } else if (e.target.id) {
+    const houses = students.filter((taco) => taco.type === e.target.id);
+    console.log(houses);
+    cardsOnDom(houses);
+  }
+});
+
+
 // *** STUDENT CARDS *** //
-const cardsOnDom = () => {
+const cardsOnDom = (taco) => {
   let domString = " ";
   for (const sortedStudents of taco) {
     domString += `
@@ -117,6 +146,21 @@ const cardsOnDom = () => {
 }
 renderToDom ("#filterStudentContainer", domString);
   };
+
+// *** VOLDY'S ARMY CARD *** //
+// const voldyCardsOnDom = (taco) => {
+//   let domString = " ";
+//   while (voldyCardsOnDom = taco) {
+//     domString += `
+//     <div class="card" style="width: 18rem;">
+//   <img src="..." class="card-img-top" alt="...">
+//   <div class="card-body">
+//     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+//   </div>
+// </div> `;
+//   }
+//   renderToDom ("#voldysArmyContainer", domString);
+// };
 
 // *** STUDENT HOUSE CARDS *** //
 // const cardsOnDom = (array) => {
@@ -160,4 +204,5 @@ sortingHat ();
 studentNameSubmit ();
 houseButtons ();
 cardsOnDom (students);
+// voldyCardsOnDom (students);
 // eventListeners ();
