@@ -93,16 +93,17 @@ renderToDom ("#submitStudentContainer", domString);
 // *** HOUSE BUTTONS *** //
 const houseButtons = () => {
   const domString = `
-<button type="button" class="btn btn-outline-danger">Gryffindor</button>
-<button type="button" class="btn btn-outline-warning">Hufflepuff</button>
-<button type="button" class="btn btn-outline-primary">Ravenclaw</button>
-<button type="button" class="btn btn-outline-success">Slytherin</button>
+<button type="button" class="btn btn-dark" id="all">All Houses</button>
+<button type="button" class="btn btn-outline-danger" id="Gryffindor">Gryffindor</button>
+<button type="button" class="btn btn-outline-warning" id="Hufflepuff">Hufflepuff</button>
+<button type="button" class="btn btn-outline-primary" id="Ravenclaw">Ravenclaw</button>
+<button type="button" class="btn btn-outline-success" id ="Slytherin">Slytherin</button>
 `;
 renderToDom ("#houseButtonContainer", domString)
 };
 
 const filter = (e) => {
-  console.log("Gryffindor" === e.target.id)
+  console.log("all" === e.target.id)
   if ("Hufflepuff" === e.target.id) {
     console.log("You clicked the Hufflepuff button.");
   } else if ("Ravenclaw" === e.target.id) {
@@ -111,21 +112,22 @@ const filter = (e) => {
     console.log("You clicked the Slytherin button.");
   } else if ("Gryffindor" === e.target.id) {
     console.log("You clicked the Gryffindor button.");
+  } else if ("all" === e.target.id) {
+    console.log("These are all the Houses.");
   }
 };
 
-// filterStudentContainer.innerHTML = domString;
+filterStudentContainer.innerHTML = domString;
 
 // *** HOUSE BUTTON FILTER *** //
 
 document.querySelector("#houseButtonContainer").addEventListener("click", (e) => {
   console.log("You clicked a filter button.", e.target.id);
-  if (e.target.id === "Gryffindor") {
+  if (e.target.id === "all") {
     cardsOnDom(students);
-  } else if (e.target.id) {
-    const houses = students.filter((taco) => taco.type === e.target.id);
-    console.log(houses);
-    cardsOnDom(houses);
+  } else if (e.target.id === "Gryffindor") {
+    const gryffHouse = students.filter((taco) => taco.type === e.target.id);
+    cardsOnDom(students);
   }
 });
 
@@ -140,7 +142,7 @@ const cardsOnDom = (taco) => {
   <div class="card-body">
     <h5 class="card-title">${sortedStudents.name}</h5>
     <p class="card-text">${sortedStudents.house}</p>
-    <a href="#" class="btn btn-danger">Expel</a>
+    <button class="btn btn-danger" id="delete--${sortedStudents.studentId}">Expel</button>
   </div>
 </div> `;
 }
@@ -150,7 +152,7 @@ renderToDom ("#filterStudentContainer", domString);
 // *** VOLDY'S ARMY CARD *** //
 // const voldyCardsOnDom = (taco) => {
 //   let domString = " ";
-//   while (voldyCardsOnDom = taco) {
+//   while (taco = students.length) {
 //     domString += `
 //     <div class="card" style="width: 18rem;">
 //   <img src="..." class="card-img-top" alt="...">
@@ -173,17 +175,20 @@ renderToDom ("#filterStudentContainer", domString);
 // }
 
 // *** EVENT LISTENERS *** //
-// const eventListeners = () => {
-// document.querySelector("#cardContainer").addEventListener("click",(e) => {
-//   console.log("You may enter the student name", e.target.id);
-//   if (e.target.id === "#submitStudentContainer"){
-//     cardsOnDom(studentNameSubmit);
-//   } else if (e.target.id) {
-//     const houses = students.filter (taco => taco.type === e.target.id);
-//     cardsOnDom(houses);
-//   }
-// });
-// }
+
+document.querySelector("#filterStudentContainer").addEventListener("click", (e) => {
+  if (e.target.id) {
+    console.log(e.target.id.split("--"));
+    const [method, students] = e.target.id.split("--");
+    const index = students.findIndex((taco) => taco.students === students);
+
+  if (e.target.id.includes("delete")) {
+    students.splice(index, 1);
+    cardsOnDom(students);
+    }
+  }
+});
+
 
 // // *** FORM BUTTONS *** ///
 // const houseButtons = () => {
@@ -204,5 +209,5 @@ sortingHat ();
 studentNameSubmit ();
 houseButtons ();
 cardsOnDom (students);
-// voldyCardsOnDom (students);
-// eventListeners ();
+// voldyCardsOnDom ();
+eventListeners ();
