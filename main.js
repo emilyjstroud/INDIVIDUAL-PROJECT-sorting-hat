@@ -121,15 +121,27 @@ filterStudentContainer.innerHTML = domString;
 
 // *** HOUSE BUTTON FILTER *** //
 
+const eventListeners = () => {
+
 document.querySelector("#houseButtonContainer").addEventListener("click", (e) => {
   console.log("You clicked a filter button.", e.target.id);
   if (e.target.id === "all") {
     cardsOnDom(students);
   } else if (e.target.id === "Gryffindor") {
-    const gryffHouse = students.filter((taco) => taco.type === e.target.id);
-    cardsOnDom(students);
+    const gryffHouse = students.filter((taco) => taco.house === e.target.id);
+    cardsOnDom(gryffHouse);
+  } else if (e.target.id === "Hufflepuff") {
+    const huffHouse = students.filter((taco) => taco.house === e.target.id);
+    cardsOnDom(huffHouse);
+  } else if (e.target.id === "Ravenclaw") {
+    const ravHouse = students.filter((taco) => taco.house === e.target.id);
+    cardsOnDom(ravHouse);
+  } else if (e.target.id === "Slytherin") {
+    const slyHouse = students.filter((taco) => taco.house === e.target.id);
+    cardsOnDom(slyHouse);
   }
 });
+};
 
 
 // *** STUDENT CARDS *** //
@@ -142,7 +154,7 @@ const cardsOnDom = (taco) => {
   <div class="card-body">
     <h5 class="card-title">${sortedStudents.name}</h5>
     <p class="card-text">${sortedStudents.house}</p>
-    <button class="btn btn-danger" id="delete--${sortedStudents.studentId}">Expel</button>
+    <button class="btn btn-danger" id="delete--${sortedStudents.students}">Expel</button>
   </div>
 </div> `;
 }
@@ -176,18 +188,24 @@ renderToDom ("#filterStudentContainer", domString);
 
 // *** EVENT LISTENERS *** //
 
-document.querySelector("#filterStudentContainer").addEventListener("click", (e) => {
-  if (e.target.id) {
-    console.log(e.target.id.split("--"));
-    const [method, students] = e.target.id.split("--");
-    const index = students.findIndex((taco) => taco.students === students);
 
-  if (e.target.id.includes("delete")) {
-    students.splice(index, 1);
-    cardsOnDom(students);
-    }
-  }
-});
+// document.querySelector("#filterStudentContainer").addEventListener("click", (e) => {
+//   console.log("You clicked a filter button.", e.target.id);
+//   if (e.target.id === "")
+
+
+
+  //   if (e.target.id) {
+//     console.log(e.target.id.split("--"));
+//     const [method, students] = e.target.id.split("--");
+//     const index = students.findIndex((taco) => taco.students === students);
+
+//   if (e.target.id.includes("delete")) {
+//     students.splice(index, 1);
+//     cardsOnDom(students);
+//     }
+//   }
+// });
 
 
 // // *** FORM BUTTONS *** ///
