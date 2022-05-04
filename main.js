@@ -40,13 +40,22 @@ const renderToDom = (divId, textToRender) => {
 // *** HTML COMPONENT FUNCTIONS *** //
 
 // *** SORTING HAT INTRO CARD *** //
+const hideContent = () => {
+  const x = document.getElementById("contentContainer");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
 const sortingHat = () => {
   let domString = `
 <div class="cardContainer" style="width: 18rem;">
   <img src="https://i.ytimg.com/vi/hQ2rS_B_DGA/maxresdefault.jpg" class="card-img-top" alt="a sorting hat">
   <div class="card-body">
     <p class="card-text">Hello There Wizard. I am the Sorting Hat. Here lies your fate for the rest of your time at Hogwarts. ~ * Expecto Patronum to you ~*</p>
-    <button type="button" class="btn btn-dark">Start Sorting!</button>
+    <button type="button" class="btn btn-dark" onclick="hideContent()">Start Sorting!</button>
   </div>
 </div> 
 `;
@@ -89,6 +98,7 @@ const studentNameSubmit = () => {
 </form> `;
 renderToDom ("#submitStudentContainer", domString);
 };
+
 
 // *** HOUSE BUTTONS *** //
 const houseButtons = () => {
@@ -143,6 +153,39 @@ document.querySelector("#houseButtonContainer").addEventListener("click", (e) =>
 });
 };
 
+
+// *** SORTING HAT FILTER *** //
+
+document.querySelector("#cardContainer").addEventListener("click", (e) => {
+  console.log("You clicked the sorting button.", e.target.id);
+});
+
+// *** STUDENT FORM FILTER *** //
+
+document.querySelector("#submitStudentContainer").addEventListener("click", (e) => {
+  console.log("You clicked the sort student button.", e.target.id);
+
+  const randomStudent = students[Math.floor(Math.random()*students.length)];
+
+});
+
+const form = document.querySelector("#submitStudentContainer");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const newCardObj = {
+  studentId: document.querySelector("#studentId").value,
+  name: document.querySelector("#name").value,
+  house: document.querySelector("#house").value,
+  imageUrl: document.querySelector("#imageUrl").value,
+  }
+
+  students.push(newCardObj);
+
+  cardsOnDom(students);
+
+  form.reset();
+});
 
 // *** STUDENT CARDS *** //
 const cardsOnDom = (taco) => {
@@ -222,7 +265,7 @@ renderToDom ("#filterStudentContainer", domString);
 
 
 // *** FUNCTIONS *** //
-
+hideContent ();
 sortingHat ();
 studentNameSubmit ();
 houseButtons ();
