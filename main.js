@@ -64,13 +64,22 @@ renderToDom ("#cardContainer", domString);
 
 
 // *** STUDENT SORTING FORM *** //
+const hideCards = () => {
+  const x = document.getElementById("filterStudentContainer");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
 const studentNameSubmit = () => {
   const domString = `
 <form>
   <div class="row mb-3">
-    <label for="input" class="col-sm-2 col-form-label">Student Name</label>
+    <label for="name" class="col-sm-2 col-form-label">Student Name</label>
     <div class="col-sm-10">
-      <input type="name" class="form-control" id="input">
+      <input type="name" class="form-control" id="name" required>
     </div>
   </div>
   <fieldset class="row mb-3">
@@ -94,7 +103,7 @@ const studentNameSubmit = () => {
  
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Sort!</button>
+  <button type="submit" class="btn btn-primary" onclick="hideCards()">Sort!</button>
 </form> `;
 renderToDom ("#submitStudentContainer", domString);
 };
@@ -157,7 +166,7 @@ document.querySelector("#houseButtonContainer").addEventListener("click", (e) =>
 // *** SORTING HAT FILTER *** //
 
 document.querySelector("#cardContainer").addEventListener("click", (e) => {
-  console.log("You clicked the sorting button.", e.target.id);
+  console.log("You clicked the sorting hat button.", e.target.id);
 });
 
 // *** STUDENT FORM FILTER *** //
@@ -188,6 +197,16 @@ form.addEventListener("submit", (e) => {
 });
 
 // *** STUDENT CARDS *** //
+
+const sortStudent = () => {
+  const taco = document.getElementById("houseButtonContainer");
+  if (taco.style.display === "none") {
+    taco.style.display = "block";
+  } else {
+    taco.style.display = "none";
+  }
+}
+
 const cardsOnDom = (taco) => {
   let domString = " ";
   for (const sortedStudents of taco) {
@@ -197,7 +216,7 @@ const cardsOnDom = (taco) => {
   <div class="card-body">
     <h5 class="card-title">${sortedStudents.name}</h5>
     <p class="card-text">${sortedStudents.house}</p>
-    <button class="btn btn-danger" id="delete--${sortedStudents.students}">Expel</button>
+    <button class="btn btn-danger" onclick="sortStudent()" id="delete--${sortedStudents.students}">Expel</button>
   </div>
 </div> `;
 }
@@ -265,10 +284,16 @@ renderToDom ("#filterStudentContainer", domString);
 
 
 // *** FUNCTIONS *** //
+
+const startApp = () => {
 hideContent ();
 sortingHat ();
 studentNameSubmit ();
 houseButtons ();
 cardsOnDom (students);
+
 // voldyCardsOnDom ();
 eventListeners ();
+};
+
+startApp ();
